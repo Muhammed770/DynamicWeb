@@ -1,6 +1,6 @@
 <x-layout>
-    <h1>Welcome to Laravel</h1>
-    <h1 class="bg-gradient-to-r from-silver to-sand bg-clip-text text-transparent">
-  Gradient Text from Silver to Sand
-</h1>
+    <h1
+        class="text-6xl bg-gradient-to-r  from-onyx to-coffee dark:from-silver dark:to-sand bg-clip-text text-transparent">
+        Gradient Text from Silver to Sand
+    </h1>
 </x-layout>

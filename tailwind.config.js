@@ -10,9 +10,14 @@ export default {
       "colors": {
          silver: '#E6E6E6',
          sand: '#C5A880',
-         chestnut: '#532E1C',
+         coffee: '#532E1C',
          onyx: '#0F0F0F',
-      }
+         slate: '#1c1c1a',
+         pearl: '#EDEDED',
+      },
+      "fontFamily": {
+        "display": ['manrope', 'sans-serif'],
+      },
     },
   },
   plugins: [],
