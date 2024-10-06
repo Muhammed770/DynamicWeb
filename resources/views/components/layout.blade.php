@@ -12,11 +12,11 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
-<body class="dark:bg-onyx dark:text-silver bg-silver text-onyx font-display font-bold ">
+<body class="  bg-white text-onyx font-display font-bold ">
     <nav class='flex items-center justify-between bg-slate text-silver rounded-lg p-4 mx-12 my-4'>
         <a href="/" class="flex space-x-6 items-center">
             <image src="{{Vite::asset('resources/images/dynamicweb_logo_lg.svg')}}" alt="logo" />
-            <h2 class="text-xl bg-gradient-to-r  from-silver to-sand bg-clip-text text-transparent">
+            <h2 class="text-xl bg-gradient-to-r  from-silver to-pearl bg-clip-text text-transparent">
                 DynamicWeb
             </h2>
         </a>

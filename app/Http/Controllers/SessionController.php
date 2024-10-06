@@ -22,7 +22,7 @@ class SessionController extends Controller
         $login = Auth::attempt($validated);
         if ($login) {
             request()->session()->regenerate();
-            return redirect('/');
+            return redirect('/dashboard');
         }else {
             throw ValidationException::withMessages([
                 'email' => 'credentials do not match',
@@ -32,6 +32,6 @@ class SessionController extends Controller
     public function destroy()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/login');
     }
 }

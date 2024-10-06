@@ -17,3 +17,7 @@ Route::get('/register', [RegisterUserController::class,'create'])->middleware('g
 
 Route::post('/register', [RegisterUserController::class,'store']);
 
+Route::get('/dashboard',function () {
+    return view('dashboard.content-builder');
+});
+
