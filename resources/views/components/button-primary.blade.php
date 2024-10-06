@@ -1,16 +1,16 @@
-@props(['isDynamic' => false])
+@props(['isDynamic' => false, 'href' => '#'])
 
 @if($isDynamic)
-<div class="bg-gradient-to-br from-onyx to-slate dark:from-sand dark:to-silver rounded-lg overflow-clip">
-    <button
-        class="bg-gradient-to-r  dark:from-onyx dark:to-coffee from-silver to-sand  bg-clip-text text-transparent  px-4 py-2">
+<a href="{{$href}}"
+    class=" rounded-lg overflow-clip px-4 py-2 bg-onyx hover:bg-black border-slate hover:border-gray-700 border dark:bg-pearl dark:text-onyx dark:hover:bg-silver">
+    <div class=" ">
         {{ $slot }}
-    </button>
-</div>
+    </div>
+</a>
 @else
-<div class="bg-gradient-to-br from-onyx to-slate hover:from-slate hover:to-onyx rounded-lg overflow-clip">
-    <button class="bg-gradient-to-r  from-silver to-sand  bg-clip-text text-transparent  px-4 py-2">
+<a href="{{$href}}" class=" rounded-lg overflow-clip px-4 py-2 bg-onyx hover:bg-black border-slate hover:border-gray-700 border ">
+    <div  class=" ">
         {{ $slot }}
-    </button>
-</div>
+    </div>
+</a>
 @endif

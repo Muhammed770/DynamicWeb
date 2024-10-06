@@ -21,12 +21,18 @@
             </h2>
         </a>
         <div class="flex space-x-4 items-center">
-            <x-nav-link href="/">Home</x-nav-link>
-            <x-nav-link href="/about">About</x-nav-link>
-            <x-button-primary :isDynamic="false">Login</x-button-primary>
+            @guest
+                <x-button-primary href='/login'>Login</x-button-primary>
+            @endguest
+            @auth
+                <form action="/logout" method="POST">
+                    @csrf
+                    <x-form-button-primary type="submit" theme="light">Logout</x-form-button-primary>
+                </form>
+            @endauth
         </div>
     </nav>
-    <main>
+    <main class="flex items-center justify-center">
         {{ $slot}}
     </main>
 </body>
