@@ -22,7 +22,7 @@ class SessionController extends Controller
         $login = Auth::attempt($validated);
         if ($login) {
             request()->session()->regenerate();
-            return redirect('/dashboard');
+            return redirect('/dashboard/projects');
         }else {
             throw ValidationException::withMessages([
                 'email' => 'credentials do not match',

@@ -1,7 +1,7 @@
 <x-layout>
     <form action="/register" method="POST">
         @csrf
-        <div class="flex flex-col space-y-8 bg-white  dark:bg-slate rounded-lg  px-8 py-4">
+        <div class="flex flex-col space-y-8 bg-white  rounded-lg  px-8 py-4">
             <h1 class="text-3xl font-bold text-center tracking-tighter">Register</h1>
             <div class="flex space-x-4">
                 <x-form-input type="text" id="first_name" name="first_name" placeholder="first name" required :value="old('first_name')"/>
