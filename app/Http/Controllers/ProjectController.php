@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -17,13 +18,13 @@ class ProjectController extends Controller
 
     public function store()
     {
-
         $attributes = request()->validate([
             'name' => ['required', 'min:2'],
-            'description' => ['required', 'min:3']
+            'description' => ['required', 'min:3'],
+            'link' => ['nullable', 'url'],
         ]);
         $attributes['user_id'] = Auth::user()->id;
-        $attributes['api_key'] = bin2hex(random_bytes(16));
+        $attributes['api_key'] = Str::uuid()->toString();
         Project::create($attributes);
         return redirect('/dashboard/projects');
     }

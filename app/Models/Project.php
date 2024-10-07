@@ -14,6 +14,7 @@ class Project extends Model
         'user_id',
         'name',
         'description',
+        'link',
         'api_key',
     ];
 

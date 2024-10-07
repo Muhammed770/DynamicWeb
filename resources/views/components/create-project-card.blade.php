@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <x-form-input type="text" name="link" id="link" 
-                                        placeholder="Project link" required />
+                                        placeholder="Project link"  />
                                 </div>
                                 <div class="mt-4">
                                     <x-form-input type="text" name="description" id="description" 
