@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,7 @@ Route::get('/projects', [ProjectController::class,'index'])->middleware('auth');
 Route::post('/projects', [ProjectController::class,'store'])->middleware('auth');
 
 Route::resource('/projects/{project}/pages', PageController::class);
+Route::resource('/projects/{project}/pages/{page}/components', ComponentController::class,[
+    'only' => ['store']
+]);
 

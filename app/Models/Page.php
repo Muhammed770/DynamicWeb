@@ -21,4 +21,8 @@ class Page extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    public function component() {
+        return $this->hasMany(Component::class);
+    }
+    
 }

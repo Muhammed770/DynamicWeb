@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center w-full mt-8">
 
         <h1 class=" tracking-tighter text-4xl bg-gradient-to-r  from-onyx to-coffee  bg-clip-text text-transparent">
             Welcome to the

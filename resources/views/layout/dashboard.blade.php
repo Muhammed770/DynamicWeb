@@ -92,15 +92,6 @@
                     <a href="/projects" class="text-xl font-bold tracking-tight">
                         {{$project->name}}
                     </a>
-                    <x-sub-heading>Pages</x-sub-heading>
-                    
-                    @foreach($pages as $page)
-                    <li>
-                        <a href="/projects/{{$project->id}}/pages/{{$page->id}}" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
-                            {{ $page->name}}
-                        </a>
-                    </li>
-                    @endforeach
                     <li class="relative flex" x-data="{ showForm: false }" @click.away="showForm = false">
                         <a href="#" @click.prevent="showForm = !showForm"
                             class="block w-full rounded-lg border border-dashed border-onyx bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 text-center">
@@ -108,7 +99,7 @@
                         </a>
                         <form x-show="showForm" class="absolute ml-44 w-60 border border-silver bg-white rounded-md"
                             action="/projects/{{$project->id}}/pages" method="POST">
-
+                    
                             @csrf
                             <div class="space-y-6 flex flex-col p-4">
                                 <x-form-input type="text" id="name" name="name" placeholder="create new page" required />
@@ -116,6 +107,14 @@
                             </div>
                         </form>
                     </li>
+                    @foreach($pages as $page)
+                    <li>
+                        <a href="/projects/{{$project->id}}/pages/{{$page->id}}" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
+                            {{ $page->name}}
+                        </a>
+                    </li>
+                    @endforeach
+                   
                 </ul>
             </div>
         </div>

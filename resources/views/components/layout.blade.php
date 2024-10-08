@@ -13,7 +13,7 @@
 </head>
 
 <body class="  bg-white text-onyx font-display font-bold ">
-    <nav class='flex items-center justify-between bg-silver text-pearl rounded-lg p-4 mx-12 my-4'>
+    <nav class='flex items-center justify-between text-pearl py-2 px-4 border border-b-2 border-b-silver'>
         <a href="/" class="flex space-x-6 items-center">
             <image src="{{Vite::asset('resources/images/dynamicweb_logo_lg.svg')}}" alt="logo" class="bg-onyx bg-clip-content rounded-md"/>
             <h2 class="text-xl text-slate ">

@@ -13,7 +13,7 @@ class PageController extends Controller
     {
 
         if ($project->user->id == Auth::user()->id) {
-            $pages = Page::where('project_id', $project->id)->get();
+            $pages = Page::where('project_id', $project->id)->latest()->get();
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -36,11 +36,11 @@ class PageController extends Controller
             'status' => 'draft',
         ]);
         //store the data
-        return redirect("/projects/{$project->id}/pages");
+        return redirect()->back();
     }
     public function show(Project $project, Page $page) {
         if ($project->user->id == Auth::user()->id) {
-            $pages = Page::where('project_id', $project->id)->get();
+            $pages = Page::where('project_id', $project->id)->latest()->get();
             return view('pages.show', [
                 'pages' => $pages,
                 'page' => $page,
