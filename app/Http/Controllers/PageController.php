@@ -17,7 +17,7 @@ class PageController extends Controller
         } else {
             abort(403, 'Unauthorized action.');
         }
-        return view('dashboard.content-builder', [
+        return view('pages.index', [
             'pages' => $pages,
             'project' => $project,
         ]);
@@ -36,9 +36,18 @@ class PageController extends Controller
             'status' => 'draft',
         ]);
         //store the data
-        return redirect("/dashboard/{$project->id}/pages");
+        return redirect("/projects/{$project->id}/pages");
     }
     public function show(Project $project, Page $page) {
-        dd($page);
+        if ($project->user->id == Auth::user()->id) {
+            $pages = Page::where('project_id', $project->id)->get();
+            return view('pages.show', [
+                'pages' => $pages,
+                'page' => $page,
+                'project' => $project,
+            ]);
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }

@@ -1,5 +1,5 @@
 <a
-    href="{{ route('projects.show', $project) }}"
+    href="/projects/{{$project->id}}/pages"
     class="flex flex-col h-48 overflow-hidden bg-white border shadow-sm rounded-xl">
     <div class="p-4  space-y-2">
         <h1 class="text-3xl font-bold tracking-tighter">

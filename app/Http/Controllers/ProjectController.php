@@ -11,7 +11,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::where('user_id', Auth::user()->id)->latest()->get();
-        return view('dashboard.projects', [
+        return view('projects.index', [
             'projects' => $projects,
         ]);
     }
@@ -26,6 +26,6 @@ class ProjectController extends Controller
         $attributes['user_id'] = Auth::user()->id;
         $attributes['api_key'] = Str::uuid()->toString();
         Project::create($attributes);
-        return redirect('/dashboard/projects');
+        return redirect('/projects');
     }
 }

@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [SessionController::class,'create'])->middleware('guest');
+Route::get('/login', [SessionController::class,'create'])->middleware('guest')->name('login');
 Route::post('/login', [SessionController::class,'store']);
 Route::post('/logout', [SessionController::class,'destroy']);
 
@@ -19,8 +19,8 @@ Route::get('/register', [RegisterUserController::class,'create'])->middleware('g
 
 Route::post('/register', [RegisterUserController::class,'store']);
 
-Route::get('/dashboard/projects', [ProjectController::class,'index'])->middleware('auth');
-Route::post('/dashboard/projects', [ProjectController::class,'store'])->middleware('auth');
+Route::get('/projects', [ProjectController::class,'index'])->middleware('auth');
+Route::post('/projects', [ProjectController::class,'store'])->middleware('auth');
 
-Route::resource('dashboard/{project}/pages', PageController::class);
+Route::resource('/projects/{project}/pages', PageController::class);
 

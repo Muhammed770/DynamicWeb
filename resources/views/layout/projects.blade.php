@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class='h-full '>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
-<body class="text-onyx font-display font-bold">
-    @yield('projects')
+
+<body class="text-onyx font-display font-bold h-full">
+    <div class="min-h-full">
+        <x-layout>
+
+            <main>
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    @yield('projects')
+                </div>
+            </main>
+        </x-layout>
+    </div>
 </body>
+
 </html>

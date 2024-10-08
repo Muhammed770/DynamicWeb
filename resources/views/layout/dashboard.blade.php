@@ -10,10 +10,11 @@
     <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
+<x-layout>
+<body class="w-full">
 
-<body class=" w-screen">
-    <div class="flex relative">
-        <div class="flex h-screen w-16 flex-col justify-between border-e bg-white">
+    <div class="flex w-full relative">
+        {{-- <div class="flex h-screen w-16 flex-col justify-between border-e bg-white">
             <div>
                 <div class="inline-flex size-16 items-center justify-center">
                     <span class="grid size-10 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
@@ -82,17 +83,20 @@
                     </button>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
         <div 
             class=" z-10 flex h-screen flex-1 flex-col justify-between border-e bg-white">
             <div class="px-4 py-2  min-w-44">
-                <ul class="mt-14 space-y-2 ">
+                <ul class="mt-4 space-y-2 ">
+                    <a href="/projects" class="text-xl font-bold tracking-tight">
+                        {{$project->name}}
+                    </a>
                     <x-sub-heading>Pages</x-sub-heading>
                     
                     @foreach($pages as $page)
                     <li>
-                        <a href="/dashboard/{{$project->id}}/pages/{{$page->id}}" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
+                        <a href="/projects/{{$project->id}}/pages/{{$page->id}}" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
                             {{ $page->name}}
                         </a>
                     </li>
@@ -103,7 +107,7 @@
                             +
                         </a>
                         <form x-show="showForm" class="absolute ml-44 w-60 border border-silver bg-white rounded-md"
-                            action="/dashboard/{{$project->id}}/pages" method="POST">
+                            action="/projects/{{$project->id}}/pages" method="POST">
 
                             @csrf
                             <div class="space-y-6 flex flex-col p-4">
@@ -116,9 +120,12 @@
             </div>
         </div>
         <div class="w-full">
-            @yield('content-builder')
+
+            @yield('pages-content')
+     
         </div>
     </div>
+ 
 </body>
-
+</x-layout>
 </html>

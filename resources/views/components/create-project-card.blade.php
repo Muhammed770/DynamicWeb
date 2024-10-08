@@ -21,7 +21,7 @@
                             <p class="mt-2 text-gray-500 ">
                                 Start a new project.
                             </p>
-                            <form action="/dashboard/projects" method="POST" class="flex flex-col">
+                            <form action="/projects" method="POST" class="flex flex-col">
                                 @csrf
                                 <div class="mt-4">
                                     <x-form-input type="text" id="name" name="name" placeholder="Project name"
