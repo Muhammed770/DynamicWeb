@@ -12,7 +12,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
-<body class="  bg-white text-onyx font-display font-bold ">
+<body class="min-h-screen flex flex-col bg-white text-onyx font-display font-bold ">
     <nav class='flex items-center justify-between text-pearl py-2 px-4 border border-b-2 border-b-silver'>
         <a href="/" class="flex space-x-6 items-center">
             <image src="{{Vite::asset('resources/images/dynamicweb_logo_lg.svg')}}" alt="logo" class="bg-onyx bg-clip-content rounded-md"/>
@@ -32,7 +32,7 @@
             @endauth
         </div>
     </nav>
-    <main class="flex items-center justify-between">
+    <main class="flex flex-1 items-center  justify-between">
         {{ $slot}}
     </main>
 </body>

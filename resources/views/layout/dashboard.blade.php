@@ -11,10 +11,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <x-layout>
-
-    <body class="w-full">
-
-        <div class="flex w-full relative">
+        <div class="flex min-h-screen w-full  ">
             {{-- <div class="flex h-screen w-16 flex-col justify-between border-e bg-white">
                 <div>
                     <div class="inline-flex size-16 items-center justify-center">
@@ -86,8 +83,8 @@
                 </div>
             </div> --}}
 
-            <div class=" z-10 flex h-screen flex-1 flex-col justify-between border-e bg-white">
-                <div class="px-4 py-2  min-w-44">
+            <div class=" z-10 justify-between border-e ">
+                <div class="px-4 py-2 min-w-44">
                     <ul class="mt-4 space-y-2 ">
                         <a href="/projects" class="text-xl font-bold tracking-tight">
                             {{$project->name}}
@@ -136,8 +133,6 @@
 
             </div>
         </div>
-
-    </body>
 </x-layout>
 
 </html>
