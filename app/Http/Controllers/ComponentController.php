@@ -11,6 +11,7 @@ class ComponentController extends Controller
 {
     public function store(Request $request, $project, Page $page)
     {
+        
         $data = $request->validate([
             'text_components' => 'nullable|array',
             'textarea_components' => 'nullable|array',

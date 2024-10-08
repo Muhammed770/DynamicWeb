@@ -20,6 +20,7 @@ class PageController extends Controller
         return view('pages.index', [
             'pages' => $pages,
             'project' => $project,
+            'current_page_id' => null,
         ]);
     }
 
@@ -39,12 +40,16 @@ class PageController extends Controller
         return redirect()->back();
     }
     public function show(Project $project, Page $page) {
+        $components = $page->components ?? collect();
+  
         if ($project->user->id == Auth::user()->id) {
             $pages = Page::where('project_id', $project->id)->latest()->get();
             return view('pages.show', [
                 'pages' => $pages,
                 'page' => $page,
                 'project' => $project,
+                'components' => $components,
+                'current_page_id' => $page->id,
             ]);
         } else {
             abort(403, 'Unauthorized action.');
