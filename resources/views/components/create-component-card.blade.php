@@ -5,21 +5,21 @@
 
     <div x-data="formBuilder()" class="space-y-4">
 
-        <div class="flex space-x-4 justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4 justify-center">
             <button @click="addComponent('text')"
-                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-yellow-50    ">+
+                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-gray-100    ">+
                 Add Text
                 Field</button>
             <button @click="addComponent('textarea')"
-                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-yellow-50">+
+                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-gray-100">+
                 Add Text
                 Area</button>
             <button @click="addComponent('image')"
-                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-yellow-50">+
+                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-gray-100">+
                 Add
                 Image</button>
             <button @click="addComponent('date')"
-                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-yellow-50">+
+                class="items-center bg-white cursor-pointer border-dashed border-2 shadow-sm rounded-xl justify-center p-4 text-gray-700 border-black hover:bg-gray-100">+
                 Add
                 Date</button>
         </div>
@@ -34,31 +34,56 @@
                     <!-- Render Different Component Types -->
                     <template x-if="component.type == 'text'">
                         <div>
+                            <label class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" x-model="component.title" name='text_titles[]'
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter title here">
+
                             <label class="block text-sm font-medium text-gray-700">Text Field</label>
-                            <input type="text" name="text_components[]" class="block w-full p-2 border rounded-lg"
-                                placeholder="Enter text here">
+                            <input type="text" x-model="component.content" name="text_contents[]"
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter text here">
                         </div>
                     </template>
 
                     <template x-if="component.type == 'textarea'">
                         <div>
+                            <label class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" x-model="component.title" name='textarea_titles[]'
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter title here">
+
                             <label class="block text-sm font-medium text-gray-700">Text Area</label>
-                            <textarea name="textarea_components[]" class="block w-full p-2 border rounded-lg"
+                            <textarea name="textarea_contents[]" class="block w-full p-2 border rounded-lg"
                                 placeholder="Enter text here"></textarea>
                         </div>
                     </template>
 
                     <template x-if="component.type == 'image'">
                         <div>
+                            <!-- Title -->
+                            <label class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" x-model="component.name" name="image_titles[]"
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter image title here">
+
+                            <!-- Image Upload -->
                             <label class="block text-sm font-medium text-gray-700">Upload Image</label>
-                            <input type="file" name="image_components[]" class="block w-full p-2 border rounded-lg">
+                            <input type="file" x-model="component.content" name="image_contents[]"
+                                class="block w-full p-2 border rounded-lg">
+
+                            <!-- Caption -->
+                            <label class="block text-sm font-medium text-gray-700">Caption</label>
+                            <input type="text" x-model="component.caption" name="image_captions[]"
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter image caption here">
+
                         </div>
                     </template>
 
                     <template x-if="component.type == 'date'">
                         <div>
+                            <label class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" x-model="component.title" name='date_titles[]'
+                                class="block w-full p-2 border rounded-lg" placeholder="Enter title here">
                             <label class="block text-sm font-medium text-gray-700">Select Date</label>
-                            <input type="date" name="date_components[]" class="block w-full p-2 border rounded-lg">
+                            <input type="date" x-model="component.content" name="date_contents[]"
+                                class="block w-full p-2 border rounded-lg">
                         </div>
                     </template>
 
@@ -84,7 +109,11 @@
             components: [],
 
             addComponent(type) {
-                this.components.push({ type: type });
+                if(type === 'image') {
+                    this.components.push({title:'',type: type ,content:'',caption:''});
+                    return;
+                }
+                this.components.push({title:'', type: type, content:'' });
             },
 
             removeComponent(index) {

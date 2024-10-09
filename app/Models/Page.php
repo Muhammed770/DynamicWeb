@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-
-    /** @use HasFactory<\Database\Factories\PageFactory> */
     use HasFactory;
-
     protected $fillable = [
         'project_id',
         'name',
@@ -18,11 +15,15 @@ class Page extends Model
         'status',
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function components() {
+    public function components()
+    {
         return $this->hasMany(Component::class);
     }
-    
+    public function project(){
+        return $this->belongsTo(Project::class);
+    }
 }
