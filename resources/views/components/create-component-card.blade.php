@@ -65,8 +65,25 @@
 
                             <!-- Image Upload -->
                             <label class="block text-sm font-medium text-gray-700">Upload Image</label>
-                            <input type="file" x-model="component.content" name="image_contents[]"
-                                class="block w-full p-2 border rounded-lg">
+                            <input type="file"  name="image_contents[]" credits="false"
+                                class="filepond">
+
+                            <!-- Load FilePond library -->
+                            <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+                            <!-- Turn all file input elements into ponds -->
+                            <script>
+                                FilePond.parse(document.body);
+                                FilePond.setOptions({
+                                    server: {
+                                        url: '/upload',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        }
+                                    }
+                                    
+                                })
+                            </script>
 
                             <!-- Caption -->
                             <label class="block text-sm font-medium text-gray-700">Caption</label>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Component;
 use App\Models\Page;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ComponentController extends Controller
 {
@@ -14,14 +15,31 @@ class ComponentController extends Controller
         
         $data = $request->validate([
             'text_titles' => 'nullable|array',
+            'text_titles.*' => 'nullable|string',
+
             'text_contents' => 'nullable|array',
+            'text_contents.*' => 'nullable|string',
+
             'textarea_titles' => 'nullable|array',
+            'textarea_titles.*' => 'nullable|string',
+
             'textarea_contents' => 'nullable|array',
+            'textarea_contents.*' => 'nullable|string',
+
             'image_titles' => 'nullable|array',
+            'image_titles.*' => ['nullable', 'string'],
+
             'image_contents' => 'nullable|array',
+            'image_contents.*' => ['nullable', 'image'],
+
             'image_captions' => 'nullable|array',
+            'image_captions.*' => 'nullable|string',
+
             'date_titles' => 'nullable|array',
+            'date_titles.*' => 'nullable|string',
+
             'date_contents' => 'nullable|array',
+            'date_contents.*' => 'nullable|date',
         ]);
 
         // Process and store text components
@@ -57,7 +75,9 @@ class ComponentController extends Controller
         // Process and store image components
         if (!empty($data['image_contents'])) {
             foreach ($data['image_contents'] as $index => $image) {
-                $path = $image->store('images');
+                // $path = $image->store('images');
+                $path = Storage::disk('public')->putFile('images', $image,'public');
+               
                 Component::create([
                     'page_id' => $page->id,
                     'type' => 'image',

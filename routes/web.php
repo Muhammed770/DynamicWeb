@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\RestrictGuestAccess;
-
+use App\Http\Controllers\FileUploadController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/upload', [FileUploadController::class,'store']);
 Route::middleware([RestrictGuestAccess::class])->group(function() {
     Route::get('/login', [SessionController::class,'create'])->middleware('guest')->name('login');
     Route::post('/login', [SessionController::class,'store']);

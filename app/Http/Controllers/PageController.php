@@ -40,7 +40,7 @@ class PageController extends Controller
         return redirect()->back();
     }
     public function show(Project $project, Page $page) {
-        $components = $page->components ?? collect();
+        $components = $page->components()->latest()->get() ?? collect();
   
         if ($project->user->id == Auth::user()->id) {
             $pages = Page::where('project_id', $project->id)->latest()->get();

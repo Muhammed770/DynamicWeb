@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <title>DynamicWeb</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
+    <!-- Filepond stylesheet -->
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 </head>
 
 <body class="min-h-screen flex flex-col bg-white text-onyx font-display font-bold ">
@@ -35,6 +37,13 @@
     <main class="flex flex-1 items-center  justify-between">
         {{ $slot}}
     </main>
+    <!-- Load FilePond library -->
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    
+    <!-- Turn all file input elements into ponds -->
+    <script>
+        FilePond.parse(document.body);
+    </script>
 </body>
 
 </html>

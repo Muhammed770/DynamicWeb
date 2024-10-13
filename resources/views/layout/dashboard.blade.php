@@ -130,7 +130,7 @@
             <div class="w-full">
 
                 @yield('pages-content')
-
+                
             </div>
         </div>
 </x-layout>

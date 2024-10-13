@@ -28,14 +28,26 @@
                                         required />
                                 </div>
                                 <div class="mt-4">
-                                    <x-form-input type="text" name="link" id="link" 
-                                        placeholder="Project link"  />
+                                    <label for="hs-input-with-add-on-url" class="block text-sm text-gray-700 font-medium ">Website
+                                        URL</label>
+                                    <div class="flex rounded-lg shadow-sm">
+                                        <div
+                                            class="px-4 inline-flex items-center min-w-fit rounded-s-lg border border-e-0 border-gray-200 bg-gray-50 ">
+                                            <span class="text-sm text-gray-500 ">https://</span>
+                                        </div>
+                                        <input type="text" name="link" id="link"
+                                            class="py-3 px-4 bg-pearl block w-full border-gray-200 rounded-e-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            placeholder="www.example.com">
+                                        </div>
+                                        @error('link')
+                                        <p class="text-red-500 dark:text-red-500 ml-1 text-xs mt-1">{{$message}}</p>
+                                        @enderror
                                 </div>
                                 <div class="mt-4">
-                                    <x-form-input type="text" name="description" id="description" 
+                                    <x-form-input type="text" name="description" id="description"
                                         placeholder="Project description" required />
                                 </div>
-                                <div class="mt-4 w-full">
+                                <div class="mt-4 w-full flex items-center justify-center">
                                     <x-form-button-primary>Create project</x-form-button-primary>
                                 </div>
                             </form>
