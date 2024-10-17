@@ -7,12 +7,13 @@ use App\Models\Component;
 use App\Models\Page;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
+use illuminate\support\Str;
 
 class ComponentController extends Controller
 {
     public function store(Request $request, $project, Page $page)
     {
-        
+   
         $data = $request->validate([
             'text_titles' => 'nullable|array',
             'text_titles.*' => 'nullable|string',
@@ -30,7 +31,7 @@ class ComponentController extends Controller
             'image_titles.*' => ['nullable', 'string'],
 
             'image_contents' => 'nullable|array',
-            'image_contents.*' => ['nullable', 'image'],
+            'image_contents.*' => ['nullable', 'string'],
 
             'image_captions' => 'nullable|array',
             'image_captions.*' => 'nullable|string',
@@ -41,6 +42,7 @@ class ComponentController extends Controller
             'date_contents' => 'nullable|array',
             'date_contents.*' => 'nullable|date',
         ]);
+
 
         // Process and store text components
         if (!empty($data['text_contents'])) {
@@ -73,17 +75,32 @@ class ComponentController extends Controller
         }
 
         // Process and store image components
-        if (!empty($data['image_contents'])) {
-            foreach ($data['image_contents'] as $index => $image) {
+        if (!empty($data['image_titles'])) {
+            foreach ($data['image_titles'] as $index=> $title) {
                 // $path = $image->store('images');
-                $path = Storage::disk('public')->putFile('images', $image,'public');
-               
+
+                if(!empty($data['image_contents'][$index])){
+                    $imageContents = json_decode($data['image_contents'][$index], true);
+                    $tempPath = $imageContents['files'][0];
+                    if(Storage::disk('local')->exists($tempPath)){
+                        $extension = pathinfo($tempPath, PATHINFO_EXTENSION);
+                        $newPath = 'images/'. uniqid() . '.' . $extension;
+                        Storage::disk('public')->put($newPath, Storage::disk('local')->get($tempPath));
+                        Storage::disk('local')->delete($tempPath);
+                        $url = Storage::url($newPath);
+                    } else {
+                        $url = null;
+                    }
+                    
+                }else{
+                    $url = null;
+                }
                 Component::create([
                     'page_id' => $page->id,
                     'type' => 'image',
                     'content' => json_encode([
-                        'title' => $data['image_titles'][$index],
-                        'path' => $path,
+                        'title' => $title,
+                        'path' => $url,
                         'caption' => $data['image_captions'][$index],
                     ]),
                     'order' => $index,

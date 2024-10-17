@@ -19,8 +19,11 @@
         <x-layout>
 
             <main>
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    @yield('projects')
+                <div class="flex justify-center items-center w-screen">
+
+                    <div class=" mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        @yield('projects')
+                    </div>
                 </div>
             </main>
         </x-layout>

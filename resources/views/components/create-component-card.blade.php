@@ -60,36 +60,17 @@
                         <div>
                             <!-- Title -->
                             <label class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" x-model="component.name" name="image_titles[]"
-                                class="block w-full p-2 border rounded-lg" placeholder="Enter image title here">
-
-                            <!-- Image Upload -->
-                            <label class="block text-sm font-medium text-gray-700">Upload Image</label>
-                            <input type="file"  name="image_contents[]" credits="false"
-                                class="filepond">
-
-                            <!-- Load FilePond library -->
-                            <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
-                            <!-- Turn all file input elements into ponds -->
-                            <script>
-                                FilePond.parse(document.body);
-                                FilePond.setOptions({
-                                    server: {
-                                        url: '/upload',
-                                        headers: {
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                        }
-                                    }
-                                    
-                                })
-                            </script>
-
+                            <input type="text" x-model="component.title" name="image_titles[]" class="block w-full p-2 border rounded-lg"
+                                placeholder="Enter image title here">
+                    
+                           <!-- Image Upload -->
+                        <label class="block text-sm font-medium text-gray-700">Upload Image</label>
+                        <input type="file" :id="'filepond-' + component.id" name="image_contents[]" class="filepond">
+                    
                             <!-- Caption -->
                             <label class="block text-sm font-medium text-gray-700">Caption</label>
                             <input type="text" x-model="component.caption" name="image_captions[]"
                                 class="block w-full p-2 border rounded-lg" placeholder="Enter image caption here">
-
                         </div>
                     </template>
 
@@ -124,18 +105,47 @@
     function formBuilder() {
         return {
             components: [],
-
+            
             addComponent(type) {
-                if(type === 'image') {
-                    this.components.push({title:'',type: type ,content:'',caption:''});
+                if (type === 'image') {
+                    const component = { title: '', type: type, content: '', caption: '', id: Date.now() }; // Add a unique ID
+                    this.components.push(component);
+                    this.$nextTick(() => {
+                        // Initialize FilePond only for the newly added input
+                        this.initializeFilePond(component.id);
+                    });
                     return;
                 }
-                this.components.push({title:'', type: type, content:'' });
+                this.components.push({ title: '', type: type, content: '' });
             },
 
             removeComponent(index) {
+                const component = this.components[index];
                 this.components.splice(index, 1);
+                this.$nextTick(() => {
+                    // Destroy only the specific FilePond instance of the removed component
+                    const pondElement = document.querySelector(`#filepond-${component.id}`);
+                    if (pondElement && pondElement.filepond) {
+                        pondElement.filepond.destroy();
+                    }
+                });
             },
+
+            initializeFilePond(id) {
+                // Initialize FilePond only for the new input with the specific ID
+                const pondElement = document.querySelector(`#filepond-${id}`);
+                if (pondElement) {
+                    FilePond.create(pondElement, {
+                        credits: false, // Disable credits
+                        server: {
+                            process: '/upload', // Define your server route to process the upload
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        }
+                    });
+                }
+            }
         }
     }
 </script>

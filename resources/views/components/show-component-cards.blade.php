@@ -40,8 +40,11 @@
                 <input type="text" x-model="component.name" name="image_titles[]" class="block w-full p-2 border rounded-lg"
                 value="{{$content->title ?? ''}}"    
                 placeholder="Enter image title here">
-            
-                <image src="{{asset('storage/'.$content->path)}}" alt="image" class="w-1/2 h-1/2">
+                <div class="flex flex-col items-center">
+
+                    <image src="{{asset($content->path)}}" alt="image" class="w-1/2 h-1/2">
+                </div>
+                
             
                 <!-- Caption -->
                 <label class="block text-sm font-medium text-gray-700">Caption</label>

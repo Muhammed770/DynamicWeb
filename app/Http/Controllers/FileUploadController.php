@@ -20,7 +20,7 @@ class FileUploadController extends Controller
                 $filename = $file->getClientOriginalName();
 
                 // Store file in the public disk under the unique folder
-                $path = Storage::putFileAs('public/tmp/' . $folder, $file, $filename);
+                $path = Storage::putFileAs('images/tmp/' . $folder, $file, $filename);
 
                 // Return file path for response or further use
                 $storedFiles[] = $path;
