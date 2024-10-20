@@ -19,6 +19,13 @@
             {{url('/api/pages/'.$page->slug)}}
             </p>
         </div>
+        <div class="px-4 py-2 min-w-44">
+            <h2>Api key</h2>
+            <p class="block rounded-lg shadow-sm hover:bg-gray-100 border bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 copy-to-clipboard"
+                data-clipboard-text="{{$project->api_key}}">
+                {{$project->api_key}}
+            </p>
+        </div>
     </div>
 </div>
 

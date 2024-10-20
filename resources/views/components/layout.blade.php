@@ -22,9 +22,9 @@
             <div class="flex items-center justify-between w-full max-w-7xl ">
 
                 <a href="/" class="flex space-x-6 items-center">
-                    {{--
+                    
                     <image src="{{Vite::asset('resources/images/dynamicweb_logo_lg.svg')}}" alt="logo"
-                        class="bg-onyx bg-clip-content rounded-md" /> --}}
+                        class="bg-onyx bg-clip-content rounded-md" />
                     <h2 class="text-xl text-slate ">
                         DynamicWeb
                     </h2>
@@ -53,6 +53,7 @@
     <script>
         FilePond.parse(document.body);
     </script>
+    @vite('resources/js/app.js')
 </body>
 
 </html>
