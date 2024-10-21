@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\PageController;
+use App\Http\Middleware\ValidateApiKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,4 +13,4 @@ Route::get('/greeting', function() {
     return response()->json(['message' => 'hello world, the api is working fine'], 200 );
 });
 
-Route::post('/v1/pages/{slug}', [PageController::class,'show']);
+Route::post('/v1/pages/{slug}', [PageController::class,'show'])->middleware(ValidateApiKey::class);

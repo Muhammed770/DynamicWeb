@@ -8,10 +8,9 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function show(Request $request, $slug)
+    public function show(Request $request)
     {
-        $sluggesh = $request->route('slug');
-        $page = Page::where("slug", $slug)->first();
+        $page = $request->page;
         if (empty($page)) {
             return response()->json([
                 'success' => false,
