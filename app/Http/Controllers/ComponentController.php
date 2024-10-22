@@ -8,12 +8,13 @@ use App\Models\Page;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
 use illuminate\support\Str;
+use illuminate\Support\Facades\Auth;
 
 class ComponentController extends Controller
 {
     public function store(Request $request, $project, Page $page)
     {
-   
+
         $data = $request->validate([
             'text_titles' => 'nullable|array',
             'text_titles.*' => 'nullable|string',
@@ -76,23 +77,22 @@ class ComponentController extends Controller
 
         // Process and store image components
         if (!empty($data['image_titles'])) {
-            foreach ($data['image_titles'] as $index=> $title) {
+            foreach ($data['image_titles'] as $index => $title) {
                 // $path = $image->store('images');
 
-                if(!empty($data['image_contents'][$index])){
+                if (!empty($data['image_contents'][$index])) {
                     $imageContents = json_decode($data['image_contents'][$index], true);
                     $tempPath = $imageContents['files'][0];
-                    if(Storage::disk('local')->exists($tempPath)){
+                    if (Storage::disk('local')->exists($tempPath)) {
                         $extension = pathinfo($tempPath, PATHINFO_EXTENSION);
-                        $newPath = 'images/'. uniqid() . '.' . $extension;
+                        $newPath = 'images/' . uniqid() . '.' . $extension;
                         Storage::disk('public')->put($newPath, Storage::disk('local')->get($tempPath));
                         Storage::disk('local')->delete($tempPath);
                         $url = Storage::url($newPath);
                     } else {
                         $url = null;
                     }
-                    
-                }else{
+                } else {
                     $url = null;
                 }
                 Component::create([
@@ -121,6 +121,78 @@ class ComponentController extends Controller
                     'order' => $index,
                 ]);
             }
+        }
+
+        return redirect()->back();
+    }
+    public function update(Request $request, $project, $page, Component $component)
+    {
+        $userId = $component->page->project->user->id;
+        if (Auth::id() != $userId) {
+            abort(403, 'Unauthorized action');
+        }
+        $validated =  $request->validate(
+            [
+                'text_titles' => 'nullable|array',
+                'text_titles.*' => 'nullable|string',
+
+                'text_contents' => 'nullable|array',
+                'text_contents.*' => 'nullable|string',
+
+                'textarea_titles' => 'nullable|array',
+                'textarea_titles.*' => 'nullable|string',
+
+                'textarea_contents' => 'nullable|array',
+                'textarea_contents.*' => 'nullable|string',
+
+                'image_titles' => 'nullable|array',
+                'image_titles.*' => ['nullable', 'string'],
+
+                'image_contents' => 'nullable|array',
+                'image_contents.*' => ['nullable', 'string'],
+
+                'image_captions' => 'nullable|array',
+                'image_captions.*' => 'nullable|string',
+
+                'date_titles' => 'nullable|array',
+                'date_titles.*' => 'nullable|string',
+
+                'date_contents' => 'nullable|array',
+                'date_contents.*' => 'nullable|date',
+            ]
+        );
+        if ($component->type == 'text' ) {
+            $component->update(
+                [
+                    'content' => json_encode([
+                        'title' => $validated['text_titles'][0],
+                        'text' => $validated['text_contents'][0],
+                    ])
+                ]
+            );
+        }
+        else if ( $component->type == 'textarea' ) {
+            $component->update(
+                [
+                    'content' => json_encode([
+                        'title' => $validated['textarea_titles'][0],
+                        'text' => $validated['textarea_contents'][0],
+                    ])
+                ]
+            );
+        }
+        else if ( $component->type == 'image' ) {
+            $currentImagePath = json_decode($component->content,true)['path'];
+
+            $component->update(
+                [
+                    'content' => json_encode([
+                        'title' => $validated['image_titles'][0],
+                        'path' => $currentImagePath,
+                        'caption' => $validated['image_captions'][0],
+                    ])
+                ]
+            );
         }
 
         return redirect()->back();

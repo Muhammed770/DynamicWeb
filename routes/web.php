@@ -30,7 +30,7 @@ Route::middleware([RestrictGuestAccess::class])->group(function() {
         'only' => ['index','store','show']
     ]);
     Route::resource('/projects/{project}/pages/{page}/components', ComponentController::class,[
-        'only' => ['store']
+        'only' => ['store','update']
     ]);
 });
 
