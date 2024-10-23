@@ -64,7 +64,7 @@
                         placeholder="Enter image title here">
                     <div class="flex flex-col items-center">
 
-                        <image src="{{asset($content->path)}}" alt="image" class="w-1/2 h-1/2">
+                        <image src="{{asset($content->path)}}" alt="image" class="w-1/2 h-1/2 rounded-sm mt-4 border border-gray-900 overflow-hidden ">
                     </div>
 
 
